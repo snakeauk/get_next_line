@@ -21,7 +21,7 @@ char	*ft_strchr(char *s, int c)
 		return (0);
 	if (c == '\0')
 		return ((char *)&s[ft_strlen(s)]);
-	while (s[index] != '\0')
+	while (s[index])
 	{
 		if ((unsigned char)s[index] == (unsigned char) c)
 			return ((char *)&s[index]);
@@ -46,20 +46,20 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	str = malloc(sizeof(char) * ((s1_len + s2_len) + 1));
+	str = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (str == NULL)
 		return (NULL);
 	index = 0;
 	if (s1)
 	{
-		while (s1[index] != '\0')
+		while (s1[index])
 		{
 			str[index] = s1[index];
 			index++;
 		}
 	}
 	index = 0;
-	while (s2[index] != '\0')
+	while (s2[index])
 	{
 		str[s1_len + index] = s2[index];
 		index++;
