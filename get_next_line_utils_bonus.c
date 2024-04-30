@@ -1,15 +1,15 @@
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *s)
 {
-	size_t	count;
+	size_t	index;
 
-	count = 0;
+	index = 0;
 	if (!s)
 		return (0);
-	while (s[count] != '\0')
-		count++;
-	return (count);
+	while (s[index])
+		index++;
+	return (index);
 }
 
 char	*ft_strchr(char *s, int c)
@@ -30,6 +30,7 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	index;
@@ -39,7 +40,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s1)
 	{
-		s1 = (char *)malloc(sizeof(char));
+		s1 = (char *)malloc(1 * sizeof(char));
 		s1[0] = '\0';
 	}
 	if (!s1 || !s2)
@@ -52,14 +53,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	index = 0;
 	if (s1)
 	{
-		while (s1[index])
+		while (s1[index] != '\0')
 		{
 			str[index] = s1[index];
 			index++;
 		}
 	}
 	index = 0;
-	while (s2[index])
+	while (s2[index] != '\0')
 	{
 		str[s1_len + index] = s2[index];
 		index++;
@@ -71,7 +72,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 char	*ft_get_line(char *str)
 {
-	size_t	index;
+	int		index;
 	char	*buf;
 
 	index = 0;
@@ -99,9 +100,9 @@ char	*ft_get_line(char *str)
 
 char	*ft_new_str(char *str)
 {
-	size_t		index;
-	size_t		size;
-	char		*buf;
+	int		index;
+	int		size;
+	char	*buf;
 
 	index = 0;
 	while (str[index] && str[index] != '\n')
