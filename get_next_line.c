@@ -38,25 +38,23 @@ char  *get_next_line(int fd)
     str = ft_next_str(str);
     return (line);
 }
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-int main(void)
-{
-    char *line;
-    int fd;
-    int i = 1;
-
-    fd = open("texts/text.txt", O_RDONLY);
-    while (i < 10)
-    {
-        printf("%d", i);
-        line = get_next_line(fd);
-        printf ("%s",line);
-        i++;
-    }
-    close(fd);
-    return (0);
-}
-
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <fcntl.h>
+// int main(void)
+// {
+//     char *line;
+//     int fd;
+//     int i = 1;
+// 
+//     fd = open("texts/text.txt", O_RDONLY);
+//     while (i < 10)
+//     {
+//         printf("%d", i);
+//         line = get_next_line(fd);
+//         printf ("%s",line);
+//         i++;
+//     }
+//     close(fd);
+//     return (0);
+// }
