@@ -14,16 +14,19 @@ size_t  ft_strlen(const char *s)
 
 char    *ft_strchr(const char *s, int c)
 {
+    size_t  index;
+
     if (!s)
         return (NULL);
-    while (*s)
+    index = 0;
+    while (s[index])
     {
-        if (*s == (char)c)
-            return ((char *)s);
-        s++;
+        if (s[index] == (char)c)
+            return ((char *)&s[index]);
+        index++;
     }
-    if (*s == (char)c)// when c='\0'
-        return ((char *)s);
+    if ((unsigned char)s[index] == (unsigned char)c)// when c='\0'
+        return ((char *)&s[index]);
     return (NULL);
 }
 
@@ -36,7 +39,12 @@ char  *ft_strjoin(char *s1, char *s2)
 
     if (!s1)
     {
-        s1 = (char *)malloc(sizeof(char));
+        s1 = (char *)malloc(sizeof(char) * 1);
+        if (!s1)
+        {
+            free(s1);
+            return (NULL);
+        }
         s1[0] = '\0';
     }
     if (!s2)
@@ -45,7 +53,10 @@ char  *ft_strjoin(char *s1, char *s2)
     size = ft_strlen(s2);
     str = (char *)malloc(sizeof(char) * (len + size + 1));
     if (!str)
+    {
+        free(str);
         return (NULL);
+    }
     index = -1;
     while (s1[++index])
         str[index] = s1[index];
@@ -53,6 +64,7 @@ char  *ft_strjoin(char *s1, char *s2)
     while (s2[++index])
         str[len + index] = s2[index];
     str[len + index] = '\0';
+    free(s1);
     return (str);
 }
 
@@ -76,7 +88,10 @@ char  *ft_get_line(char *str)
         index++;
     }
     if (str[index] == '\n')
+    {
         buf[index] = '\n';
+        index++;
+    }
     buf[index] = '\0';
     return (buf);
 }
@@ -87,8 +102,6 @@ char  *ft_next_str(char *str)
     size_t  index;
     size_t  size;
     
-    if (!str)
-        return (NULL);
     index = 0;
     while (str[index] && str[index] != '\n')
         index++;
@@ -99,7 +112,10 @@ char  *ft_next_str(char *str)
     }
     buf = (char *)malloc(sizeof(char) * (ft_strlen(str) - index + 1));
     if (!buf)
+    {
+        free(buf);
         return (NULL);
+    }
     index++;
     size = 0;
     while (str[index + size])
