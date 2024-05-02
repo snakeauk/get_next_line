@@ -80,7 +80,10 @@ char  *ft_get_line(char *str)
         index++;
     buf = (char *)malloc(sizeof(char) * (index + 2));
     if (!buf)
+    {
+        free(buf);
         return (NULL);
+    }
     index = 0;
     while (str[index] && str[index] != '\n')
     {
