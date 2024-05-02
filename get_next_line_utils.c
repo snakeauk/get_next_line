@@ -25,7 +25,7 @@ char    *ft_strchr(const char *s, int c)
             return ((char *)&s[index]);
         index++;
     }
-    if ((unsigned char)s[index] == (unsigned char)c)// when c='\0'
+    if (s[index] == (char)c)// when c='\0'
         return ((char *)&s[index]);
     return (NULL);
 }
@@ -80,10 +80,7 @@ char  *ft_get_line(char *str)
         index++;
     buf = (char *)malloc(sizeof(char) * (index + 2));
     if (!buf)
-    {
-        free(buf);
         return (NULL);
-    }
     index = 0;
     while (str[index] && str[index] != '\n')
     {
@@ -104,7 +101,7 @@ char  *ft_next_str(char *str)
     char    *buf;
     size_t  index;
     size_t  size;
-    
+
     index = 0;
     while (str[index] && str[index] != '\n')
         index++;
@@ -115,10 +112,7 @@ char  *ft_next_str(char *str)
     }
     buf = (char *)malloc(sizeof(char) * (ft_strlen(str) - index + 1));
     if (!buf)
-    {
-        free(buf);
         return (NULL);
-    }
     index++;
     size = 0;
     while (str[index + size])
