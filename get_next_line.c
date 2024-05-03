@@ -12,7 +12,7 @@ char  *ft_read_file(int fd, char *str)
     while (!ft_strchr(str, '\n') && size != 0)
     {
         size = read(fd, buf, BUFFER_SIZE);
-        if (size == -1)
+        if (size < 0)
         {
             free(buf);
             return (NULL);
@@ -29,7 +29,7 @@ char  *get_next_line(int fd)
     static char *str;
     char        *line;
 
-    if (fd < 0 || BUFFER_SIZE <= 0)
+    if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > FD_MAX)
         return (NULL);
     str = ft_read_file(fd, str);
     if (!str)

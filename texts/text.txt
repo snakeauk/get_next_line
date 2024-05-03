@@ -3,6 +3,4 @@ bbbbbbbbbbbbbb
 cccccccccccccc
 dddddddddddddd
 eeeeeeeeeeeeee
-ffffffffffffff
-11111111111111
-00000000000000
+ggggggg
