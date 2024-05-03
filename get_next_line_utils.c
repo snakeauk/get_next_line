@@ -4,9 +4,9 @@ size_t  ft_strlen(char *s)
 {
     size_t	count;
 
-    count = 0;
     if (!s)
-    return (0);
+        return (0);
+    count = 0;
     while (s[count])
         count++;
     return (count);
@@ -18,7 +18,7 @@ char	*ft_strchr(char *s, int c)
 
     index = 0;
     if (!s)
-        return (0);
+        return (NULL);
     if (c == '\0')
         return ((char *)&s[ft_strlen(s)]);
     while (s[index])
@@ -40,6 +40,8 @@ char	*ft_strjoin(char *s1, char *s2)
     if (!s1)
     {
         s1 = (char *)malloc(sizeof(char));
+        if (!s1)
+            return (0);
         s1[0] = '\0';
     }
     if (!s1 || !s2)
@@ -99,8 +101,8 @@ char	*ft_get_line(char *str)
 
 char	*ft_next_str(char *str)
 {
-    size_t		index;
-    size_t		size;
+    size_t  index;
+    size_t  size;
     char		*buf;
 
     index = 0;
