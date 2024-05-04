@@ -15,6 +15,7 @@ char  *ft_read_file(int fd, char *str)
         if (size < 0)
         {
             free(buf);
+            free(str);
             return (NULL);
         }
         buf[size] = '\0';
@@ -26,7 +27,7 @@ char  *ft_read_file(int fd, char *str)
 
 char  *get_next_line(int fd)
 {
-    static char *str[256];
+    static char *str[FD_MAX];
     char        *line;
 
     if (fd < 0 || BUFFER_SIZE <= 0/* || BUFFER_SIZE > FD_MAX*/)

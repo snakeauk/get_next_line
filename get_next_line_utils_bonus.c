@@ -74,14 +74,20 @@ char	*ft_strjoin(char *s1, char *s2)
 char	*ft_get_line(char *str)
 {
     size_t  index;
+    size_t  n_flag;
     char    *buf;
 
     index = 0;
     if (!str[index])
         return (NULL);
     while (str[index] && str[index] != '\n')
+    {
         index++;
-    buf = (char *)malloc(sizeof(char) * (index + 2));
+    }
+    n_flag = 0;
+    if (str[index] == '\n')
+        n_flag = 1;
+    buf = (char *)malloc(sizeof(char) * (index + n_flag + 1));
     if (!buf)
         return (NULL);
     index = 0;
@@ -90,7 +96,7 @@ char	*ft_get_line(char *str)
         buf[index] = str[index];
         index++;
     }
-    if (str[index] == '\n')
+    if (n_flag)
     {
         buf[index] = str[index];
         index++;

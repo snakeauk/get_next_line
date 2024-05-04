@@ -15,6 +15,7 @@ char  *ft_read_file(int fd, char *str)
         if (size < 0)
         {
             free(buf);
+            free(str);
             return (NULL);
         }
         buf[size] = '\0';
