@@ -1,23 +1,82 @@
-#include "get_next_line_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/04 16:47:52 by kinamura          #+#    #+#             */
+/*   Updated: 2024/05/04 19:10:59 by kinamura         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+
+char	*ft_get_line(char *str)
+{
+	size_t	index;
+	size_t	n_flag;
+	char	*buf;
+
+	index = 0;
+	if (!str[index])
+		return (NULL);
+	while (str[index] && str[index] != '\n')
+		index++;
+	n_flag = 0;
+	if (str[index] == '\n')
+		n_flag = 1;
+	buf = (char *)malloc(sizeof(char) * (index + n_flag + 1));
+	if (!buf)
+		return (NULL);
+	ft_strlcpy(buf, str, index + n_flag + 1);
+	return (buf);
+}
+
+char	*ft_next_str(char *str)
+{
+	size_t	index;
+	char	*buf;
+
+	index = 0;
+	while (str[index] && str[index] != '\n')
+		index++;
+	if (!str[index])
+	{
+		free(str);
+		return (NULL);
+	}
+	buf = (char *)malloc(sizeof(char) * (ft_strlen(str) - index + 1));
+	if (!buf)
+	{
+		free(str);
+		return (NULL);
+	}
+	index++;
+	ft_strlcpy(buf, &str[index], (ft_strlen(str) - index + 1));
+	free(str);
+	return (buf);
+}
 
 char	*ft_read_file(int fd, char *str)
 {
 	char	*buf;
-	int		byte;
+	int		size;
 
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	byte = 1;
-	while (!ft_strchr(str, '\n') && byte != 0)
+	size = 1;
+	while (!ft_strchr(str, '\n') && size != 0)
 	{
-		byte = read(fd, buf, BUFFER_SIZE);
-		if (byte == -1)
+		size = read(fd, buf, BUFFER_SIZE);
+		if (size < 0)
 		{
 			free(buf);
+			free(str);
 			return (NULL);
 		}
-		buf[byte] = '\0';
+		buf[size] = '\0';
 		str = ft_strjoin(str, buf);
 	}
 	free(buf);
@@ -26,16 +85,15 @@ char	*ft_read_file(int fd, char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*buf[4096];
+	static char	*str[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	buf[fd] = ft_read_file(fd, buf[fd]);
-	if (!buf[fd])
 		return (NULL);
-	line = ft_get_line(buf[fd]);
-	buf[fd] = ft_new_str(buf[fd]);
+	str[fd] = ft_read_file(fd, str[fd]);
+	if (!str[fd])
+		return (NULL);
+	line = ft_get_line(str[fd]);
+	str[fd] = ft_next_str(str[fd]);
 	return (line);
 }
-
