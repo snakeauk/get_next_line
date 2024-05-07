@@ -97,3 +97,25 @@ char	*get_next_line(int fd)
 	str[fd] = ft_next_str(str[fd]);
 	return (line);
 }
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+// #include <fcntl.h>
+// int main (void)
+// {
+//     char *line;
+//     int fd;
+//     int i = 1;
+//     fd = open("test/test.txt", O_RDONLY);
+//     while (42)
+//     {
+//         printf("%d:",i);
+//         line = get_next_line(fd);
+//         if (!line)
+//             break ;
+//         printf("%s", line);
+//         i++;
+//     }
+//     close(fd);
+//     return (0);
+// }
