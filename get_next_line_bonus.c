@@ -85,10 +85,10 @@ char	*ft_read_file(int fd, char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str[1024];
+	static char	*str[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > OPEN_MAX)
 		return (NULL);
 	str[fd] = ft_read_file(fd, str[fd]);
 	if (!str[fd])
