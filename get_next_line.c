@@ -60,8 +60,8 @@ char	*ft_next_str(char *str)
 
 char	*ft_read_file(int fd, char *str)
 {
-	char	*buf;
-	int		size;
+	char    	*buf;
+	ssize_t 	size;
 
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
