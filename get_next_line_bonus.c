@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:47:52 by kinamura          #+#    #+#             */
-/*   Updated: 2024/07/02 08:25:15 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/07/02 08:36:34 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,30 @@ char	*ft_get_line(char *str)
 	return (buf);
 }
 
-char *ft_next_str(char *str)
+char	*ft_next_str(char *str)
 {
-    size_t index;
-    char *buf;
+	size_t	index;
+	char	*buf;
 
-    index = 0;
-    while (str[index] && str[index] != '\n')
-        index++;
-    if (!str[index])
-    {
-        free(str);
-        return (NULL);
-    }
-    buf = (char *)malloc(sizeof(char) * (ft_strlen(str) - index));
-    if (!buf)
-    {
-        free(str);
-        return (NULL);
-    }
-    index++;
-    ft_memcpy(buf, &str[index], (ft_strlen(str) - index));
-    buf[ft_strlen(str) - index] = '\0';
-    free(str);
-    return (buf);
+	index = 0;
+	while (str[index] && str[index] != '\n')
+		index++;
+	if (!str[index])
+	{
+		free(str);
+		return (NULL);
+	}
+	buf = (char *)malloc(sizeof(char) * (ft_strlen(str) - index));
+	if (!buf)
+	{
+		free(str);
+		return (NULL);
+	}
+	index++;
+	ft_memcpy(buf, &str[index], (ft_strlen(str) - index));
+	buf[ft_strlen(str) - index] = '\0';
+	free(str);
+	return (buf);
 }
 
 char	*ft_read_file(int fd, char *str)
@@ -97,23 +97,15 @@ char	*ft_read_file(int fd, char *str)
 	{
 		size = read(fd, buf, BUFFER_SIZE);
 		if (size < 0)
-		{
-			free(buf);
-			free(str);
-			return (NULL);
-		}
+			return (free(buf), free(str), NULL);
 		str = ft_memadd(str, (const char *)buf, size);
 		if (!str)
-		{
-			free(buf);
-			return (NULL);
-		}
+			return (free(buf), NULL);
 		if (str)
 		{
 			if (ft_strchr(str, '\n'))
-			break ;
+				break ;
 		}
-		
 	}
 	free(buf);
 	return (str);
